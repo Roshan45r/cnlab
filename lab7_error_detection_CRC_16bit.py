@@ -13,9 +13,12 @@ for i in range(limit):
     for j in range(len(g)):
         rem+=str(int(v[j])^int(div[j]))
     #print(rem)
-    ans=rem
+    
     if(i<limit-1):
         div=rem[1:]+moddata[len(g)+i]
+    if(i==limit-1):
+        rem=rem[1:]
+    ans=rem
         
-print("Remainder : "+ans)
+print("Remainder : "+str(len(ans)))
 print("Codeword : "+data+ans)
