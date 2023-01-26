@@ -1,24 +1,36 @@
-data=input("Enter data:")
-moddata=data+"0"*16
-g = "10001000000100001"
-limit = len(moddata)-len(g)+1
-ans=""
-div=moddata
-for i in range(limit):
-    if(div[0]=="1"):
-        v=g
+def division(code,pol):
+    i=len(poly)
+    temp=code[0:len(poly)]
+    for j in range(0,len(code)-len(poly)):
+        if(temp[0] != '0'):
+            res=xor(temp,poly,len(poly))
+            temp=res[1:]+code[i]
+        else:
+            temp=temp[1:]+code[i]
+        i = i + 1
+        print(temp)
+    if(temp[0] != '0'):
+            res=xor(temp,poly,len(poly))
+            send = res[1:]
     else:
-        v="0"*len(g)
-    rem=""
-    for j in range(len(g)):
-        rem+=str(int(v[j])^int(div[j]))
-    #print(rem)
-    
-    if(i<limit-1):
-        div=rem[1:]+moddata[len(g)+i]
-    if(i==limit-1):
-        rem=rem[1:]
-    ans=rem
-        
-print("Remainder : "+str(len(ans)))
-print("Codeword : "+data+ans)
+        send = temp[1:]
+    return send
+def xor(a, b, n):
+    ans = ""
+    for i in range(n):
+        if (a[i] == b[i]):
+            ans += "0"
+        else:
+            ans += "1"
+    return ans
+code = input("ENTER CODEWROD \n")
+poly = "1101"
+zeroes = "000"
+modified_code = code+zeroes
+sender = division(modified_code,poly)
+receiver = code+sender
+ans = division(receiver,poly)
+if ans == "000":
+    print("no error")
+else:
+    print("error data")
